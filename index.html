@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LENGTH CONVERTER</title>
+    <link rel="stylesheet" href="index.css" type="text/css">
+</head>
+<body>
+
+    <!-- POPUP -->
+    <div id="popup">
+        <div class="popup-box">
+            <h2>Select Conversion Type</h2>
+            <button onclick="setMode('cm')" class="popupBtn">CM ➜ INCHES</button>
+            <button onclick="setMode('inch')" class="popupBtn">INCHES ➜ CM</button>
+        </div>
+    </div>
+
+    <div id="wrap">
+        <!-- Label (Unique ID) -->
+        <h2 id="modeLabel">CM TO INCHES</h2>
+
+        <div class="inputdiv">
+            <input type="text" id="input" placeholder="ENTER THE CM">
+        </div>
+
+        <div>
+            <!-- Convert Button (Unique ID) -->
+            <button type="submit" onclick="convert()" id="convertBtn">
+                CONVERT TO INCHES
+            </button>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+<script>
+
+let mode = "cm"; // Default mode
+
+function setMode(selected){
+    mode = selected;
+
+    // Close popup
+    document.getElementById("popup").style.display = "none";
+
+    // Update UI based on selected mode
+    if(mode === "cm"){
+        document.getElementById("modeLabel").innerText = "CM TO INCHES";
+        document.getElementById("convertBtn").innerText = "CONVERT TO INCHES";
+        document.getElementById("input").placeholder = "ENTER THE CM";
+    } else {
+        document.getElementById("modeLabel").innerText = "INCHES TO CM";
+        document.getElementById("convertBtn").innerText = "CONVERT TO CM";
+        document.getElementById("input").placeholder = "ENTER THE INCHES";
+    }
+}
+
+function convert(){
+    let rawValue = document.getElementById("input").value;
+    let resultBox = document.getElementById("result");
+
+    if(rawValue.trim() === "" || isNaN(rawValue)){
+        resultBox.innerHTML = "⚠ Enter a valid number!";
+        return;
+    }
+
+    let value = Number(rawValue);
+
+    if(mode === "cm"){
+        let inches = value / 2.54;
+        resultBox.innerHTML = inches.toFixed(2) + " Inches";
+    } else {
+        let cm = value * 2.54;
+        resultBox.innerHTML = cm.toFixed(2) + " CM";
+    }
+}
+
+</script>
+
+</body>
+</html>
